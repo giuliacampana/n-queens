@@ -79,12 +79,33 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      return this.rows()[rowIndex].reduce(function(sum, item) {
+        return sum + item;
+      }, 0) > 1; 
+      
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.rows().length; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
+
+      // this.rows().forEach(function(row, i) {
+      //   if (this.hasRowConflictAt(i)) {
+      //     return true;
+      //   }
+      // });
+      
+      // _.each(this.rows(), function(row, i, arr) {
+      //   if (row.hasRowConflictAt(i)) {
+      //     return true;
+      //   }
+      // });
+      // return false; 
     },
 
 
@@ -94,12 +115,26 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var count = 0;
+      for (var i = 0; i < this.rows().length; i++) {
+        if (this.rows()[i][colIndex] === 1) {
+          count++;
+        }
+        if (count > 1) {
+          return true;
+        }
+      }
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.rows().length; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -109,7 +144,25 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var cIdx = majorDiagonalColumnIndexAtFirstRow;
+      var n = this.rows().length - cIdx;
+
+      if (n === 1) {
+        return false;
+      }
+
+      var count = 0;
+      var prevCIdx = 0;
+
+      while (count < n) {
+        if (this.rows()[cIdx + count][cIdx + count] === 1 && prevCIdx === 1) {
+          return true;
+        } else if (this.rows()[cIdx + count][cIdx + count] === 1) {
+            prevCIdx = 1;
+            count++;
+          }
+      }
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
