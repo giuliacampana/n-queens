@@ -17,6 +17,23 @@
 
 window.findNRooksSolution = function(n) {
   var solution = undefined; //fixme
+  
+  var buildValidOptionsBoard = function(n) {
+    var validBoard = range(0, 4).map(item => { return []; }); //[];
+
+    for (var i = 0; i < n; i++) {
+      for (var j = 0; j < n; j++) {
+        validBoard[i][j] = [i, j];
+      }
+    }
+    return validBoard;
+  };
+  buildValidOptionsBoard(n);
+  //given an n-sized board start at 0,0...place a 1 at that location
+  //creating another array to hold all possible placements.
+  //as we add a piece take out the tuples that are invalid.
+
+  
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
