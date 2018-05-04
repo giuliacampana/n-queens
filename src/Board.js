@@ -93,19 +93,6 @@
         }
       }
       return false;
-
-      // this.rows().forEach(function(row, i) {
-      //   if (this.hasRowConflictAt(i)) {
-      //     return true;
-      //   }
-      // });
-      
-      // _.each(this.rows(), function(row, i, arr) {
-      //   if (row.hasRowConflictAt(i)) {
-      //     return true;
-      //   }
-      // });
-      // return false; 
     },
 
 
@@ -209,7 +196,6 @@
     hasAnyMinorDiagonalConflicts: function() {
       var x = this.rows().length;
       x *= 2;
-      console.log(x);
 
       for (var i = 0; i < x - 1; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
@@ -217,8 +203,22 @@
         }
       }
       return false;
-    }
+    },
+    
+    makeCopyOfBoard: function() {
+      var arr = [];
+      var result = [];
+      var tempBoard = this.rows().slice();
 
+      for (var i = 0; i < tempBoard.length; i++) {
+        for (var j = 0; j < tempBoard.length; j++) {
+          arr.push(tempBoard[i][j])  
+        }
+        result.push(arr)
+        arr = [];
+      }
+      return result;
+    }
     /*--------------------  End of Helper Functions  ---------------------*/
 
 
